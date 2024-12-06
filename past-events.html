@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+h1, h2, h3, p {
+  margin: 0;
+  padding: 0;
+}
+
+              .navbar {
+            color: white;
+            background-color: rgba(18, 18, 18, 0.9);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(30, 30, 30, 0.9);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: dropdownSlideIn 0.3s ease;
+        }
+
+        .dropdown-content a {
+            color: var(--text-light);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(50, 50, 50, 0.9);
+            color: var(--secondary-color);
+        }
+        /* ----------------------------------- */
+        #past-container {
+            position: relative;
+            top: 7em;
+            max-width: 90%;
+            margin: auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        #past-container h2 {
+            font-size: 1.9em;
+            color: #333;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .result-win {
+            color: green;
+            font-weight: bold;
+        }
+
+        .result-loss {
+            color: red;
+            font-weight: bold;
+        }
+
+        .result-draw {
+            color: gray;
+            font-weight: bold;
+        }
+
+    
+    </style>
+</head>
+<body>
+     <!-- Navigation -->
+     <header class="navbar">
+        <div class="logo">Athletes</div>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#news">News</a>
+                <div class="dropdown-content">
+                    <a href="#latest-news">Latest News</a>
+                    <a href="#trending">Trending</a>
+                    <a href="#interviews">Athlete Interviews</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#events">Events</a>
+                <div class="dropdown-content">
+                    <a href="upcoming.html">Upcoming Events</a>
+                    <a href="applied.html">Applied Events</a>
+                    <a href="past-events.html">Past Results</a>
+
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#athletes">Athletes</a>
+                <div class="dropdown-content">
+                    <a href="#profiles">Athlete Profiles</a>
+                    <a href="#rankings">Rankings</a>
+                    <a href="#achievements">Achievements</a>
+                </div>
+            </li>
+            <li><a href="#coaches">Coaches</a></li>
+            <li><a href="#logout">Logout</a></li>
+        </ul>
+    </header>
+    <div id="past-container">
+        <h2>Past Event Results</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Stadium</th>
+                    <th>Result</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Event 1 (Win) -->
+                <tr>
+                    <td>100m Sprint</td>
+                    <td>Olympic Stadium</td>
+                    <td class="result-win">Win</td>
+                    <td>March 15, 2024</td>
+                </tr>
+
+                <!-- Event 2 (Loss) -->
+                <tr>
+                    <td>Long Jump</td>
+                    <td>National Stadium</td>
+                    <td class="result-loss">Loss</td>
+                    <td>April 20, 2024</td>
+                </tr>
+
+                <!-- Event 3 (Draw) -->
+                <tr>
+                    <td>Pole Vault</td>
+                    <td>City Arena</td>
+                    <td class="result-draw">Draw</td>
+                    <td>May 10, 2024</td>
+                </tr>
+
+                <!-- Event 4 (Win) -->
+                <tr>
+                    <td>Relay Race</td>
+                    <td>Regional Track</td>
+                    <td class="result-win">Win</td>
+                    <td>June 5, 2024</td>
+                </tr>
+
+                <!-- Event 5 (Loss) -->
+                <tr>
+                    <td>High Jump</td>
+                    <td>Stadium X</td>
+                    <td class="result-loss">Loss</td>
+                    <td>July 15, 2024</td>
+                </tr>
+
+                <!-- Event 6 (Win) -->
+                <tr>
+                    <td>4x100m Relay</td>
+                    <td>Victory Field</td>
+                    <td class="result-win">Win</td>
+                    <td>August 25, 2024</td>
+                </tr>
+
+                <!-- Event 7 (Draw) -->
+                <tr>
+                    <td>Discus Throw</td>
+                    <td>Grand Arena</td>
+                    <td class="result-draw">Draw</td>
+                    <td>September 10, 2024</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<script>
+  
+</script>
+</body>
+</html>

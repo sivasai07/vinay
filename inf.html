@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #0077be;
+            --secondary-color: #00a86b;
+            --background-dark: #121212;
+            --text-light: #f4f4f4;
+            --gradient-primary: linear-gradient(135deg, #0077be 0%, #00a86b 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.9);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(30, 30, 30, 0.9);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: dropdownSlideIn 0.3s ease;
+        }
+
+        .dropdown-content a {
+            color: var(--text-light);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(50, 50, 50, 0.9);
+            color: var(--secondary-color);
+        }
+
+        .hero {
+            background: url('https://th.bing.com/th/id/R.3d4ff844fcdf1e0f7e3b1d16d49e10db?rik=vzNdlSdyi28ptw&riu=http%3a%2f%2fwww.stack.com%2fwp-content%2fuploads%2f2020%2f04%2f14140000%2fMultiple.jpg&ehk=aqvdYUg2FE3jKFqGrVOY6%2feXXcPY4EWVoK%2fip%2b%2biigM%3d&risl=&pid=ImgRaw&r=0') no-repeat center center/cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+           /backdrop-filter: blur(0.2px);/
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: slideIn 1.5s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 0.5s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* event cards */
+        .events-container {
+            padding: 50px 20px;
+            background: var(--background-dark);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .event-card {
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .event-details {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .event-details h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .event-details p {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .check-status-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .check-status-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+        @keyframes dropdownSlideIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(-10px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { 
+                display: none; 
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="logo">Athletes</div>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#news">News</a>
+                <div class="dropdown-content">
+                    <a href="#latest-news">Latest News</a>
+                    <a href="#trending">Trending</a>
+                    <a href="#interviews">Athlete Interviews</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#events">Events</a>
+                <div class="dropdown-content">
+                    <a href="upcoming.html">Upcoming Events</a>
+                    <a href="#past-events">Past Results</a>
+                    <a href="#register">Event Registration</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#athletes">Athletes</a>
+                <div class="dropdown-content">
+                    <a href="#profiles">Athlete Profiles</a>
+                    <a href="#rankings">Rankings</a>
+                    <a href="#achievements">Achievements</a>
+                </div>
+            </li>
+            <li><a href="#coaches">Coaches</a></li>
+            <li><a href="#logout">Logout</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero"id="heroSection">
+        <div class="hero-content">
+            <h1>Unleash Your Full Potential</h1>
+            <p>Track your progress, compete with the best, and reach new heights in your sports journey.</p>
+            
+            <a href="#events-section" class="cta-button" id="getStartedBtn">Get Started</a>
+        </div>
+    </section>
+    <!-- Events Section -->
+    <section id="events-section" style="display: none;">
+        <div class="events-container" id="eventsContainer">
+            <!-- Event cards will be dynamically loaded here -->
+        </div>
+    </section>
+    
+    <script>
+        // Decrypt sensitive data
+        function decryptData(data) {
+            if (!data) return null; // Handle null or undefined values gracefully
+            return decodeURIComponent(escape(atob(data))); // Example decryption
+        }
+        
+        // Check if the user is authenticated
+        function checkAuthentication() {
+            const token = sessionStorage.getItem("token");
+            const username = sessionStorage.getItem("username");
+            const userId = localStorage.getItem("userId");
+        
+            // Validate presence of token, username, and userId
+            if (!token || !username || !userId) {
+                return false;
+            }
+        
+            try {
+                // Attempt to decrypt the values to ensure they are valid
+                decryptData(token);
+                decryptData(username);
+                decryptData(userId);
+                return true; // Authentication successful
+            } catch (error) {
+                console.error("Error during decryption:", error);
+                return false; // Authentication failed
+            }
+        }
+        
+        // Redirect to login if not authenticated
+        if (!checkAuthentication()) {
+            alert("You must log in first!");
+            window.location.href = "login.html"; // Redirect to login page
+        } else {
+            // Retrieve and display data securely
+            const token = decryptData(sessionStorage.getItem("token"));
+            const username = decryptData(sessionStorage.getItem("username"));
+            const userId = decryptData(localStorage.getItem("userId"));
+        
+            console.log("Username:", username);
+            console.log("User ID:", userId);
+            console.log("Token:", token);
+        
+            // Fetch athlete-specific data
+            fetch("http://localhost:8080/api/athlete/data", {
+                method: "GET",
+                headers: {
+                    "Authorization": Bearer ${token}
+                }
+            })
+                .then(response => response.json())
+                .then(data => console.log("Athlete data:", data))
+                .catch(error => console.error("Error fetching athlete data:", error));
+        }
+        //events registered 
+        const athleteId = 8; // Replace with the logged-in athlete ID
+    const getStartedBtn = document.getElementById('getStartedBtn');
+    const heroSection = document.getElementById('heroSection');
+    const eventsSection = document.getElementById('events-section');
+    const eventsContainer = document.getElementById('eventsContainer');
+
+    // Smooth scroll to events section and hide hero
+    getStartedBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // Hide the hero section
+        heroSection.style.display = 'none';
+
+        // Show the events section
+        eventsSection.style.display = 'block';
+        eventsSection.scrollIntoView({ behavior: 'smooth' });
+
+        // Fetch events for the athlete
+        fetchRegisteredEvents();
+    });
+
+    // Fetch events registered by the athlete
+    function fetchRegisteredEvents() {
+        fetch(http://localhost:8080/api/events/athlete/${athleteId}/registered)
+            .then(response => response.json())
+            .then(events => {
+                eventsContainer.innerHTML = '';
+                events.forEach(event => {
+                    const eventCard = document.createElement('div');
+                    eventCard.className = 'event-card';
+                    eventCard.innerHTML = `
+                        <img src="https://via.placeholder.com/400x200" alt="${event.eventTitle}" class="event-image">
+                        <div class="event-details">
+                            <h3>${event.eventTitle}</h3>
+                            <p>${event.eventDate} | ${event.eventTime}</p>
+                            <p>${event.eventLocation}</p>
+                            <a href="#" class="check-status-btn" onclick="checkEventStatus(${event.eventId})">Check Status</a>
+                        </div>
+                    `;
+                    eventsContainer.appendChild(eventCard);
+                });
+            })
+            .catch(error => console.error('Error fetching events:', error));
+    }
+
+    // Check status of a specific event
+    function checkEventStatus(eventId) {
+        fetch(http://localhost:8080/api/events/${eventId}/athlete/${athleteId}/status)
+            .then(response => response.text())
+            .then(status => alert(Status: ${status}))
+            .catch(error => console.error('Error fetching status:', error));
+    }
+        </script>
+        
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+h1, h2, h3, p {
+  margin: 0;
+  padding: 0;
+}
+                .navbar {
+            color: white;
+            background-color: rgba(18, 18, 18, 0.9);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(30, 30, 30, 0.9);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: dropdownSlideIn 0.3s ease;
+        }
+
+        .dropdown-content a {
+            color: var(--text-light);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(50, 50, 50, 0.9);
+            color: var(--secondary-color);
+        }
+        /* ----------------------------------------- */
+         #achievements-container {
+            position:relative;
+            top:7em;
+            max-width:40%;
+            margin: auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        #achievements-container h2 {
+            font-size: 1.9em;
+            color: #333;
+            margin-bottom:1em;
+            text-align: center;
+        }
+
+        .achievement {
+            display: flex;
+            align-items: center;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .achievement-icon {
+            font-size: 1.8em;
+            color: #6a5acd;
+            margin-right: 15px;
+        }
+
+        .achievement-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .achievement-title {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .achievement-details {
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">Athletes</div>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#news">News</a>
+                <div class="dropdown-content">
+                    <a href="#latest-news">Latest News</a>
+                    <a href="#trending">Trending</a>
+                    <a href="#interviews">Athlete Interviews</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#events">Events</a>
+                <div class="dropdown-content">
+                    <a href="upcoming.html">Upcoming Events</a>
+                    <a href="applied.html">Applied Events</a>
+                    <a href="past-events.html">Past Results</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#athletes">Athletes</a>
+                <div class="dropdown-content">
+                    <a href="#profiles">Athlete Profiles</a>
+                    <a href="#rankings">Rankings</a>
+                    <a href="achievement.html">Achievements</a>
+                </div>
+            </li>
+            <li><a href="#coaches">Coaches</a></li>
+            <li><a href="#logout">Logout</a></li>
+        </ul>
+    </header>
+    <div id="achievements-container" class="content-section">
+        <h2>My Achievements</h2>
+        <div class="achievement">
+            <div class="achievement-icon">🏅</div>
+            <div class="achievement-content">
+                <div class="achievement-title">Gold Medal</div>
+                <div class="achievement-details">State Championship 2024</div>
+            </div>
+        </div>
+        <div class="achievement">
+            <div class="achievement-icon">🏆</div>
+            <div class="achievement-content">
+                <div class="achievement-title">MVP Award</div>
+                <div class="achievement-details">Regional League 2024</div>
+            </div>
+        </div>
+        <div class="achievement">
+            <div class="achievement-icon">🎖️</div>
+            <div class="achievement-content">
+                <div class="achievement-title">Top Scorer</div>
+                <div class="achievement-details">National Finals 2023</div>
+            </div>
+        </div>
+        <div class="achievement">
+            <div class="achievement-icon">🥇</div>
+            <div class="achievement-content">
+                <div class="achievement-title">Best Player</div>
+                <div class="achievement-details">District Tournament 2023</div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+    </script>
+</body>
+</html>

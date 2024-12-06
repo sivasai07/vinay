@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('wel.jpg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Welcome Container */
+        .welcome-container {
+            text-align: center;
+            max-width: 700px;
+            width: 90%;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1.5s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Heading Styles */
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: #ddd;
+        }
+
+        /* Buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .welcome-btn {
+            padding: 15px 40px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #fff;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-btn:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .welcome-btn.secondary {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        }
+
+        .welcome-btn.secondary:hover {
+            background: linear-gradient(135deg, #feb47b, #ff7e5f);
+        }
+
+        /* Background Animation */
+        .background-balls {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .background-ball {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .background-ball:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+            animation-duration: 7s;
+        }
+
+        .background-ball:nth-child(2) {
+            top: 70%;
+            left: 80%;
+            animation-delay: 2s;
+            animation-duration: 8s;
+        }
+
+        .background-ball:nth-child(3) {
+            top: 50%;
+            left: 40%;
+            animation-delay: 4s;
+            animation-duration: 6s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-balls">
+        <div class="background-ball"></div>
+        <div class="background-ball"></div>
+        <div class="background-ball"></div>
+    </div>
+
+    <!-- Welcome Container -->
+    <div class="welcome-container">
+        <h1>Welcome to Our Platform</h1>
+        <p>
+            Elevate your journey with us. Whether you're a coach, an athlete, or an admin, 
+            our platform empowers you to achieve more. Join us today and take the first step!
+        </p>
+        <div class="button-container">
+            <a href="register.html" class="welcome-btn">Register</a>
+            <a href="index.html" class="welcome-btn secondary">Login</a>
+        </div>
+    </div>
+</body>
+</html>

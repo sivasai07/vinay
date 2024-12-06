@@ -1,0 +1,552 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events</title>
+    <!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* General Styles */
+        /* upcoming page styles */
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+h1, h2, h3, p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional: Add animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Events Section */
+.events-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.events-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Events Grid Container */
+.events-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Four cards per row */
+  gap: 10px;
+  justify-items: center; /* Center cards within grid cells */
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* Event Card Styles */
+.event-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 390px; /* Set a fixed height for uniformity */
+  overflow: hidden;
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column; /* Ensures proper layout for image and text */
+}
+
+.event-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.event-card img {
+  width: 100%;
+  height: 200px; /* Fix the height to ensure uniformity */
+  object-fit: cover; /* Ensures the image fits properly */
+  display: block;
+}
+
+.event-details {
+  padding: 15px;
+  flex-grow: 1; /* Ensures text section fills available space evenly */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Aligns content evenly */
+}
+
+.event-details h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #42464a;
+  text-align: center; /* Center aligns heading */
+}
+
+.event-details p {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #666;
+  text-align: center; /* Center aligns description */
+}
+
+/* Register Button */
+.register-btn {
+  display: block;
+  margin: 10px auto 0;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.register-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Footer Section */
+.events-footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.events-footer p {
+  font-size: 1rem;
+  margin: 0;
+}
+/* Popup Container */
+#popup-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        z-index: 1000;
+        text-align: center;
+        width: 300px;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Hidden Class */
+    .hidden {
+        display: none;
+    }
+
+    /* Popup Content */
+    .popup-content {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
+
+    /* Popup Text */
+    #popup-text {
+        margin-bottom: 15px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    /* Close Button */
+    .popup-close-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .popup-close-btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Optional: Backdrop */
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 999;
+    }
+
+    body.popup-active::after {
+        display: block;
+    }
+    /* -------------------------------- */
+       /* Search Bar */
+    .search-bar {
+            margin-bottom: 15px;
+        }
+
+        .search-bar input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            font-size: 16px;
+            outline: none;
+        }
+        /* ------------------------------------ */
+        .navbar {
+            color: white;
+            background-color: rgba(18, 18, 18, 0.9);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(30, 30, 30, 0.9);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: dropdownSlideIn 0.3s ease;
+        }
+
+        .dropdown-content a {
+            color: var(--text-light);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(50, 50, 50, 0.9);
+            color: var(--secondary-color);
+        }
+        /* ------------------------------------ */
+        .events-header{
+            width: 100%;
+            height: 7em;
+            border: 1px solid black;
+            position: relative;
+            top:4em;
+            margin-bottom: 3em;
+        }
+        .events-header img{
+            position: absolute;
+            width: 100%;
+            height: 10%;
+            /* object-fit: contain; */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="logo">Athletes</div>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#news">News</a>
+                <div class="dropdown-content">
+                    <a href="#latest-news">Latest News</a>
+                    <a href="#trending">Trending</a>
+                    <a href="#interviews">Athlete Interviews</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#events">Events</a>
+                <div class="dropdown-content">
+                    <a href="upcoming.html">Upcoming Events</a>
+                    <a href="applied.html">Applied Events</a>
+                    <a href="past-events.html">Past Results</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#athletes">Athletes</a>
+                <div class="dropdown-content">
+                    <a href="#profiles">Athlete Profiles</a>
+                    <a href="#rankings">Rankings</a>
+                    <a href="#achievements">Achievements</a>
+                </div>
+            </li>
+            <li><a href="#coaches">Coaches</a></li>
+            <li><a href="#logout">Logout</a></li>
+        </ul>
+    </header>
+
+    <!-- Header -->
+    <header class="events-header">
+        <img src="spo.jpg" class="header-content"/>
+    </header>
+
+    <!-- Events Section -->
+       <!-- Events Section -->
+       <main>
+        <section class="events-section">
+            <h2>Register Now</h2>
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i> 
+                <input type="text" id="search-bar" placeholder="Search events by name...">
+            </div>
+            <div class="events-container">
+                <!-- Event Cards -->
+                <div class="event-card">
+                    <img src="mc.jpg" alt="Marathon Championship" class="event-image">
+                    <div class="event-details">
+                        <h3>Marathon Championship</h3>
+                        <p>Date: December 10, 2024</p>
+                        <p>Location: Central Park</p>
+                        <button class="register-btn" data-event-id="marathon-championship">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="bb.webp" alt="Basketball League" class="event-image">
+                    <div class="event-details">
+                        <h3>Basketball League</h3>
+                        <p>Date: January 15, 2025</p>
+                        <p>Location: Sports Arena</p>
+                        <button class="register-btn" data-event-id="basketball-league">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="sc.webp" alt="Soccer Tournament" class="event-image">
+                    <div class="event-details">
+                        <h3>Soccer Tournament</h3>
+                        <p>Date: February 5, 2025</p>
+                        <p>Location: Greenfield Stadium</p>
+                        <button class="register-btn" data-event-id="soccer-tournament">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="tt.jpeg" alt="Tennis Open" class="event-image">
+                    <div class="event-details">
+                        <h3>Tennis Open</h3>
+                        <p>Date: March 10, 2025</p>
+                        <p>Location: National Tennis Court</p>
+                        <button class="register-btn" data-event-id="tennis-open">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="bm.jpg" alt="Badminton Tournament" class="event-image">
+                    <div class="event-details">
+                        <h3>Badminton Tournament</h3>
+                        <p>Date: April 12, 2025</p>
+                        <p>Location: City Sports Hall</p>
+                        <button class="register-btn" data-event-id="badminton-tournament">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="cc.jpg" alt="Cricket League" class="event-image">
+                    <div class="event-details">
+                        <h3>Cricket League</h3>
+                        <p>Date: May 20, 2025</p>
+                        <p>Location: National Cricket Ground</p>
+                        <button class="register-btn" data-event-id="cricket-league">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="sm.avif" alt="Swimming Gala" class="event-image">
+                    <div class="event-details">
+                        <h3>Swimming Gala</h3>
+                        <p>Date: June 5, 2025</p>
+                        <p>Location: Blue Lagoon Arena</p>
+                        <button class="register-btn" data-event-id="swimming-gala">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="gf.jpg" alt="Golf Championship" class="event-image">
+                    <div class="event-details">
+                        <h3>Golf Championship</h3>
+                        <p>Date: July 15, 2025</p>
+                        <p>Location: Golden Golf Club</p>
+                        <button class="register-btn" data-event-id="golf-championship">Register</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="events-footer">
+        <p>© 2025 Sports Portal. All Rights Reserved.</p>
+    </footer>
+
+   <!-- Popup Message -->
+<div id="popup-message" class="hidden popup">
+    <div class="popup-content">
+        <span id="popup-text"></span>
+        <button id="close-popup" class="popup-close-btn">Close</button>
+    </div>
+</div>
+
+    
+
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".register-btn");
+    const popup = document.getElementById("popup-message");
+    const popupText = document.getElementById("popup-text");
+    const closePopup = document.getElementById("close-popup");
+
+    // Close popup event
+    closePopup.addEventListener("click", () => {
+        popup.classList.add("hidden");
+        document.body.classList.remove("popup-active");
+    });
+
+    // Handle register button clicks
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const eventId = button.getAttribute("data-event-id");
+            const isRegistered = localStorage.getItem(eventId);
+
+            if (isRegistered === "true") {
+                popupText.textContent = "You have already registered for this event.";
+            } else {
+                localStorage.setItem(eventId, "true");
+                popupText.textContent = "Registration successful!";
+            }
+
+            popup.classList.remove("hidden");
+            document.body.classList.add("popup-active");
+        });
+    });
+});
+
+   // Get references to search input and event cards
+   const searchBar = document.getElementById('search-bar');
+    const eventCards = document.querySelectorAll('.event-card');
+
+    // Add event listener for keyup event on search input
+    searchBar.addEventListener('keyup', function() {
+        const searchQuery = searchBar.value.toLowerCase(); // Get the search query in lowercase
+
+        // Loop through each event card
+        eventCards.forEach(function(card) {
+            const eventName = card.querySelector('h3').textContent.toLowerCase(); // Get the event name in lowercase
+
+            // Check if the event name includes the search query
+            if (eventName.includes(searchQuery)) {
+                card.style.display = 'block';  // Show the event card if it matches
+            } else {
+                card.style.display = 'none';  // Hide the event card if it doesn't match
+            }
+        });
+    });
+
+    </script>
+</body>
+</html>

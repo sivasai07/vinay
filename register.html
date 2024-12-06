@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <select id="role" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="COACH">Coach</option>
+                <option value="ATHLETE">Athlete</option>
+                <option value="ADMIN">Admin</option>
+            </select>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="index.html">Login here</a></p>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+            
+            // Display a success message
+            alert('You have successfully registered!');
+            
+            // Redirect to the login page
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
