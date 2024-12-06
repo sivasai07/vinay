@@ -30,6 +30,7 @@ h1, h2, h3, p {
             z-index: 1000;
             transition: background-color 0.3s ease;
             backdrop-filter: blur(10px);
+            margin-right: 1em;
         }
 
         .logo {
@@ -38,12 +39,15 @@ h1, h2, h3, p {
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
+            
+           
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 30px;
+            justify-content:center;
         }
 
         .nav-links li {
@@ -57,6 +61,7 @@ h1, h2, h3, p {
             transition: all 0.3s ease;
             position: relative;
             padding-bottom: 5px;
+         
         }
 
         .nav-links a::after {
@@ -81,8 +86,9 @@ h1, h2, h3, p {
 
         .dropdown {
             position: relative;
+            left: -4em;
         }
-
+       
         .dropdown-content {
             display: none;
             position: absolute;
@@ -163,6 +169,71 @@ h1, h2, h3, p {
             font-size: 0.9em;
             color: #777;
         }
+          /* Popup Content */
+    .popup-content {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
+
+    /* Popup Text */
+    .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-content h3 {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .popup-buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .popup-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .popup-buttons .yes-btn {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .popup-buttons .yes-btn:hover {
+            background: #218838;
+        }
+
+        .popup-buttons .no-btn {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .popup-buttons .no-btn:hover {
+            background: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -193,8 +264,8 @@ h1, h2, h3, p {
                     <a href="achievement.html">Achievements</a>
                 </div>
             </li>
-            <li><a href="#coaches">Coaches</a></li>
-            <li><a href="#logout">Logout</a></li>
+            <li class="dropdown"><a href="#coaches">Coaches</a></li>
+            <li class="dropdown"><a href="#" id="logout">Logout</a></li>
         </ul>
     </header>
     <div id="achievements-container" class="content-section">
@@ -228,8 +299,38 @@ h1, h2, h3, p {
             </div>
         </div>
     </div>
+          <!-- Logout Popup -->
+          <div id="logoutPopup" class="popup">
+            <div class="popup-content">
+                <h3>Are you sure you want to logout?</h3>
+                <div class="popup-buttons">
+                    <button class="yes-btn" id="yesBtn">Yes</button>
+                    <button class="no-btn" id="noBtn">No</button>
+                </div>
+            </div>
+        </div>
+ <!-- JavaScript -->
     <script>
+           const logoutLink = document.getElementById("logout");
+        const logoutPopup = document.getElementById("logoutPopup");
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
 
+        // Show popup on logout click
+        logoutLink.addEventListener("click", (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            logoutPopup.style.display = "flex"; // Show popup
+        });
+
+        // Redirect to logout page if "Yes" is clicked
+        yesBtn.addEventListener("click", () => {
+            window.location.href = "logout.html"; // Change to your desired logout URL
+        });
+
+        // Close popup if "No" is clicked
+        noBtn.addEventListener("click", () => {
+            logoutPopup.style.display = "none"; // Hide popup
+        });
     </script>
 </body>
 </html>
