@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Applied Events</title>
     <style>
         body {
   font-family: Arial, sans-serif;
@@ -17,6 +17,15 @@ h1, h2, h3, p {
   margin: 0;
   padding: 0;
 }
+.event-text{
+            margin: 40px;
+            max-width: 400%;
+            padding: 10px;
+            font-size: large;
+            text-align: center;
+            color: white;
+            background-color: #0056b3;
+         }
 
               .navbar {
             color: white;
@@ -257,7 +266,7 @@ h1, h2, h3, p {
                 <a href="#events">Events</a>
                 <div class="dropdown-content">
                     <a href="upcoming.html">Upcoming Events</a>
-                    <a href="applied.html">Applied Events</a>
+                    <a href="applied.html">   Applied Events</a>
                     <a href="past-events.html">Past Results</a>
                 </div>
             </li>
@@ -265,8 +274,8 @@ h1, h2, h3, p {
                 <a href="#athletes">Athletes</a>
                 <div class="dropdown-content">
                     <a href="#profiles">Athlete Profiles</a>
-                    <a href="#rankings">Rankings</a>
-                    <a href="#achievements">Achievements</a>
+                    <a href="rankings.html">Rankings</a>
+                    <a href="achievements.html">Achievements</a>
                 </div>
             </li>
             <li class="dropdown"><a href="#coaches">Coaches</a></li>
@@ -275,7 +284,9 @@ h1, h2, h3, p {
     </header>
     <div id="appliedevents-container" class="content-section active-section">
         <div class="card">
-            <h2>My Events</h2>
+            <div class="event-text">
+                <h2>My Events</h2>
+            </div>
             <p>Applied events</p>
             <div class="tabs">
                 <button class="tab active" onclick="filterEvents('all')">Overview</button>
@@ -379,7 +390,7 @@ h1, h2, h3, p {
 
         // Redirect to logout page if "Yes" is clicked
         yesBtn.addEventListener("click", () => {
-            window.location.href = "logout.html"; // Change to your desired logout URL
+            window.location.href = "sporty.html"; // Change to your desired logout URL
         });
 
         // Close popup if "No" is clicked
